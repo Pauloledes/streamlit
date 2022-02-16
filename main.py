@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import numpy as np
 
 header = st.container()
 dataset = st.container()
@@ -51,9 +52,10 @@ with model_training:
 
     X = taxi_data[[input_feature]]
     y = taxi_data[['trip_distance']]
+    y = np.ravel(y)
 
-    regr.fit(X,y)
-    prediction = regr.predict(y)
+    regr.fit(X, y)
+    prediction = regr.predict(X)
 
     disp_col.subheader('Mean absolute error of the model is :')
     disp_col.write(mean_absolute_error(y, prediction))
