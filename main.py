@@ -18,7 +18,7 @@ with dataset:
     st.header('NYC taxi dataset')
     st.text('I found this dataset on https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page')
 
-    taxi_data = pd.read_csv('data/taxi_data.csv')
+    taxi_data = pd.read_csv('data/taxi_data_r.csv')
     st.write(taxi_data.head())
 
     distribution_pickup = pd.DataFrame(taxi_data['PULocationID'].value_counts())
@@ -46,7 +46,7 @@ with model_training:
     if n_estimators == 'No limit':
         n_estimators = 1000
 
-    input_feature = sel_col.selectbox('Which feature should be used as the input feature ?', options=taxi_data.columns)
+    input_feature = sel_col.selectbox('Which feature should be used as the input feature ?', options=taxi_data.columns, index=taxi_data.columns.get_loc('PULocationID'))
 
     regr = RandomForestRegressor(max_depth=max_depth, n_estimators=n_estimators)
 
